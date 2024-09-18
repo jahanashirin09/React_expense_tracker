@@ -4,22 +4,21 @@ import OverviewComponent from './Component/OverviewComponent'
 import TransactionComponent from './Component/TransactionComponent'
 
 export default function HomeComponent() {
-  const [Transaction,setUpdateTransaction]=useState([]);
+  const [transaction,setUpdateTransaction]=useState([]);
   const[expense,updateExpense]=useState(0);
   const[income,updateIncome]=useState(0);
   
 
 
   const addTransaction=(payload)=>{
-    const TransactionArray=[...Transaction]
-    TransactionArray.push(payload)
-    setUpdateTransaction(TransactionArray)
-
+    setUpdateTransaction((prevTransactions)=>
+      [...prevTransactions,payload]
+    )
   }
   const totalBalance=()=>{
     let expense=0;
     let income=0;
-    Transaction.map((payload)=>{
+    transaction.map((payload)=>{
       payload.type==="EXPENSE"?expense=expense+payload.amount:income=income+payload.amount;
     });
     updateExpense(expense)
@@ -27,11 +26,11 @@ export default function HomeComponent() {
     
   
   }
-  useEffect(()=>totalBalance(),[Transaction])
+  useEffect(()=>totalBalance(),[transaction])
   return (
     <div className='home-container-component'>
         <OverviewComponent addTransaction={addTransaction} expense={expense} income={income}/>
-        <TransactionComponent Transaction={Transaction} />
+        <TransactionComponent transaction={transaction} />
     </div>
   )
 }

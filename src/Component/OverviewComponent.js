@@ -3,13 +3,13 @@ import './OverviewComponent.css'
 import AddTransactionView from './AddTransactionView';
 import ExpenseContainer from './ExpenseContainer';
 
-export default function OverviewComponent(props) {
+export default function OverviewComponent({income,expense,addTransaction}) {
 
   const[isAddTxnVisible,toggleAddTxn]=useState(true);
   return (
     <div className='OverviewComponent-main-component'>
       <div className='balance-box'>
-        Balance:${props.income-props.expense}
+        Balance:${income-expense}
         <div className='add-button-container'>
           <button className='add-button' onClick={()=>toggleAddTxn(!isAddTxnVisible)}>{isAddTxnVisible?'Cancel' :'ADD'}
 
@@ -18,12 +18,12 @@ export default function OverviewComponent(props) {
       </div>
         {isAddTxnVisible && <AddTransactionView 
         toggleAddTxn={toggleAddTxn}
-        addTransaction={props.addTransaction}
+        addTransaction={addTransaction}
         
          />}
         <ExpenseContainer  
-        income={props.income}
-        expense={props.expense}/>
+        income={income}
+        expense={expense}/>
     </div>
   )
 }

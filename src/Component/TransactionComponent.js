@@ -4,19 +4,19 @@ import TransactionCell from './TransactionCell'
 
 export default function TransactionComponent(props) {
   const[searchText,updateSearchText]=useState("")
-  const[filteredTransaction,updatetxn]=useState(props.Transaction)
+  const[filteredTransaction,updatetxn]=useState(props.transaction)
   const filterData=(searchText)=>{
     if(!searchText||!searchText.trim().length){
-      updatetxn(props.Transaction)
+      updatetxn(props.transaction)
       return;
     }
-    let txn=[...props.Transaction];
+    let txn=[...props.transaction];
     txn=txn.filter((payload)=>
       payload.desc.toLowerCase().includes(searchText.toLowerCase().trim())
     );
     updatetxn(txn)
   }
-  useEffect(()=>filterData(searchText),[props.Transaction])
+  useEffect(()=>filterData(searchText),[props.transaction])
   return (
     <div className='transaction-main-container'>
       Transaction
